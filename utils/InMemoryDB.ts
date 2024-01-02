@@ -18,6 +18,7 @@ class InMemoryDB {
     // User Methods
     addUser(user: User) {
       this.users.set(user.id, user);
+      return true;
     }
   
     getUser(id: number): User | undefined {

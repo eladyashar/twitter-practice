@@ -10,7 +10,7 @@ router.post('/', (req: Request, res: Response) => {
     const userData = req.body;
     const user = new User(userData.id , userData.username, userData.email);
     userBL.addUser(user);
-    res.status(201);
+    res.sendStatus(201);
 });
 
 router.get('/:id', (req: Request, res: Response) => {
