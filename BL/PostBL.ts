@@ -1,36 +1,40 @@
-import { PostDataAccess } from '../DAL/PostDataAccess';
+import { DataAccess } from '../DAL/DataAccess';
 import Post from '../models/Post';
 
 export class PostBL {
-    private postDataAccess = new PostDataAccess();
+    private postDataAccess: DataAccess<Post>;
 
-    addPost(post: Post): void {
+    constructor(postDataAccess: DataAccess<Post>) {
+        this.postDataAccess = postDataAccess;
+    }
+
+    async addPost(post: Post): Promise<void> {
         try {
-            this.postDataAccess.addPost(post);
+            await this.postDataAccess.add(post);
         } catch (error) {
             throw new Error(`Unable to add Post: ${(error as Error).message}`);
         }
     }
 
-    getPost(postId: number): Post {
-        const Post = this.postDataAccess.getPost(postId);
+    async getPost(postId: number): Promise<Post> {
+        const Post = await this.postDataAccess.get(postId);
         if (!Post) {
             throw new Error(`Post with ID ${postId} not found`);
         }
         return Post;
     }
 
-    updatePost(postId: number, updateData: Partial<Post>): void {
+    async updatePost(postId: number, updateData: Partial<Post>): Promise<void> {
         try {
-            this.postDataAccess.updatePost(postId, updateData);
+            await this.postDataAccess.update(postId, updateData);
         } catch (error) {
             throw new Error(`Unable to update Post: ${(error as Error).message}`);
         }
     }
 
-    deletePost(postId: number): void {
+    async deletePost(postId: number): Promise<void> {
         try {
-            this.postDataAccess.deletePost(postId);
+            await this.postDataAccess.delete(postId);
         } catch (error) {
             throw new Error(`Unable to delete Post: ${(error as Error).message}`);
         }

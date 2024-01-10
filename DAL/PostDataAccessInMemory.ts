@@ -1,31 +1,32 @@
 import Post from '../models/Post';
 import InMemoryDB from '../utils/InMemoryDB';
+import { DataAccess } from './DataAccess';
 
-export class PostDataAccess {
+export class PostDataAccessInMemory implements DataAccess<Post>{
     private db = InMemoryDB.getInstance();
 
-    addPost(post: Post): void {
-        this.db.addPost(post);
+    async add(post: Post): Promise<void> {
+        await this.db.addPost(post);
     }
 
-    getPost(postId: number): Post {
-        const post = this.db.getPost(postId);
+    async get(postId: number): Promise<Post> {
+        const post = await this.db.getPost(postId);
         if (!post) {
             throw new Error(`User with ID ${postId} not found`);
         }
         return post;
     }
 
-    updatePost(postId: number, updateData: Partial<Post>): void {
-        const existingPost = this.db.getPost(postId);
+    async update(postId: number, updateData: Partial<Post>): Promise<void> {
+        const existingPost = await this.db.getPost(postId);
         if (!existingPost) {
             throw new Error(`User with ID ${postId} not found`);
         }
         this.db.updatePost(postId, updateData);
     }
 
-    deletePost(postId: number): void {
-        const existingPost = this.db.getPost(postId);
+    async delete(postId: number): Promise<void> {
+        const existingPost = await this.db.getPost(postId);
         if (!existingPost) {
             throw new Error(`User with ID ${postId} not found`);
         }

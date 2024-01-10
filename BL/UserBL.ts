@@ -4,33 +4,33 @@ import User from '../models/User';
 export class UserBL {
     private userDataAccess = new UserDataAccess();
 
-    addUser(user: User): void {
+    async addUser(user: User): Promise<void> {
         try {
-            this.userDataAccess.addUser(user);
+            await this.userDataAccess.addUser(user);
         } catch (error) {
             throw new Error(`Unable to add user: ${(error as Error).message}`);
         }
     }
 
-    getUser(userId: number): User {
-        const user = this.userDataAccess.getUser(userId);
+    async getUser(userId: number): Promise<User> {
+        const user = await this.userDataAccess.getUser(userId);
         if (!user) {
             throw new Error(`User with ID ${userId} not found`);
         }
         return user;
     }
 
-    updateUser(userId: number, updateData: Partial<User>): void {
+    async updateUser(userId: number, updateData: Partial<User>): Promise<void> {
         try {
-            this.userDataAccess.updateUser(userId, updateData);
+            await this.userDataAccess.updateUser(userId, updateData);
         } catch (error) {
             throw new Error(`Unable to update user: ${(error as Error).message}`);
         }
     }
 
-    deleteUser(userId: number): void {
+    async deleteUser(userId: number): Promise<void> {
         try {
-            this.userDataAccess.deleteUser(userId);
+            await this.userDataAccess.deleteUser(userId);
         } catch (error) {
             throw new Error(`Unable to delete user: ${(error as Error).message}`);
         }
