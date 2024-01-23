@@ -40,11 +40,15 @@ class InMemoryDB {
   
     // Post Methods
     addPost(post: Post) {
-      this.posts.set(post.id, post);
+      //this.posts.set(post.id, post);
     }
   
     getPost(id: number): Post | undefined {
       return this.posts.get(id);
+    }
+
+    getAllPosts(): Post[] {
+      return Array.from(this.posts.values());
     }
   
     updatePost(id: number, postData: Partial<Post>) {

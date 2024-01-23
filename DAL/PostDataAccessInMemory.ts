@@ -17,12 +17,20 @@ export class PostDataAccessInMemory implements DataAccess<Post>{
         return post;
     }
 
+    async getAll(): Promise<Post[]> {
+        const posts = await this.db.getAllPosts();
+        if (posts.length === 0) {
+            throw new Error(`User with ID not found`);
+        }
+        return posts;
+    }
+
     async update(postId: number, updateData: Partial<Post>): Promise<void> {
         const existingPost = await this.db.getPost(postId);
         if (!existingPost) {
             throw new Error(`User with ID ${postId} not found`);
         }
-        this.db.updatePost(postId, updateData);
+        await this.db.updatePost(postId, updateData);
     }
 
     async delete(postId: number): Promise<void> {
@@ -30,6 +38,6 @@ export class PostDataAccessInMemory implements DataAccess<Post>{
         if (!existingPost) {
             throw new Error(`User with ID ${postId} not found`);
         }
-        this.db.deletePost(postId);
+        await this.db.deletePost(postId);
     }
 }

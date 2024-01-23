@@ -1,10 +1,12 @@
 class Post {
-    id: number;
+    id: number | null;
+    title: string;
     content: string;
     postedBy: number; // user ID
   
-    constructor(id: number, content: string, postedBy: number) {
+    constructor(id: number | null , title: string, content: string, postedBy: number) {
       this.id = id;
+      this.title = title;
       this.content = content;
       this.postedBy = postedBy;
     }

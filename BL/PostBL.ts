@@ -24,6 +24,14 @@ export class PostBL {
         return Post;
     }
 
+    async getAllPosts(): Promise<Post[]> {
+        const Posts = await this.postDataAccess.getAll();
+        if (Posts.length === 0) {
+            throw new Error(`Posts not found`);
+        }
+        return Posts;
+    }
+
     async updatePost(postId: number, updateData: Partial<Post>): Promise<void> {
         try {
             await this.postDataAccess.update(postId, updateData);

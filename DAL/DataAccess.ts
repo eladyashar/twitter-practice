@@ -3,4 +3,5 @@ export interface DataAccess<T> {
     delete(id: number): Promise<void>,
     update(id: number, updateData: Partial<T>): Promise<void>,
     get(id: number): Promise<T>
+    getAll(): Promise<T[]>
 }
