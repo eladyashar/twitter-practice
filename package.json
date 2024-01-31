@@ -20,8 +20,7 @@
     "google-auth-library": "^9.4.2",
     "jsonwebtoken": "^9.0.2",
     "pg": "^8.11.3",
-    "reflect-metadata": "^0.2.1",
-    "typeorm": "^0.3.19"
+    "reflect-metadata": "^0.2.1"
   },
   "devDependencies": {
     "@types/pg": "^8.10.9"
